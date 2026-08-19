@@ -130,20 +130,30 @@ class FreemchostingClaimPW:
             page.goto(MAIN_URL, wait_until="domcontentloaded")
             self.human_wait()
 
-            context.add_cookies([
-                {
-                    "name": "remember_web",
-                    "value": COOKIE,
-                    "domain": "client.freemchosting.com",
-                    "path": "/"
-                },
-                {
-                    "name": "paymenter_remember",
-                    "value": COOKIE2,
-                    "domain": "client.freemchosting.com",
-                    "path": "/"
-                }
-            ])
+            if COOKIES:
+                cookie_list = []
+
+                for item in COOKIES.split(";"):
+                   item = item.strip()
+                   if not item or "=" not in item:
+                      continue
+
+                name, value = item.split("=", 1)
+
+                cookie_list.append({
+                  "name": name.strip(),
+                  "value": value.strip(),
+                  "domain": "panel.freemchosting.com",
+                  "path": "/"
+               })
+
+                if cookie_list:
+                    context.add_cookies(cookie_list)
+                    self.log(f"🍪 已加载 {len(cookie_list)} 个 Cookies")
+                else:
+                    self.log("⚠️ COOKIES 中没有找到有效 Cookie")
+            else:
+               self.log("⚠️ COOKIES 未配置")
 
             # ================= DASHBOARD =================
             self.log("📂 进入账户面板")
