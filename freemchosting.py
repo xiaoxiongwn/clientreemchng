@@ -10,8 +10,7 @@ from playwright.sync_api import sync_playwright
 
 # ================= ENV =================
 PROXY_URL = os.getenv("PROXY", "")
-COOKIE = os.getenv("COOKIE") # 对应remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d=的cookies
-COOKIE2 = os.getenv("COOKIE2") # 对应paymenter_remember=的cookies
+COOKIES = os.getenv("COOKIES", "")
 TG_TOKEN = os.getenv("TG_TOKEN")
 TG_CHAT_ID = os.getenv("TG_CHAT_ID")
 
